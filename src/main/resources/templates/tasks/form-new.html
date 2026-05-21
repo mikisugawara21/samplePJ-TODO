@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>新規タスク作成</title>
+</head>
+<body>
+    <div style="padding: 20px;">
+        <h2>新規タスク作成</h2>
+        <form th:action="@{/tasks}" method="post">
+            <div style="margin-bottom: 15px;">
+                <label>タイトル</label><br>
+                <input type="text" name="title" style="width: 100%; padding: 5px; box-sizing: border-box;">
+            </div>
+            <div style="margin-bottom: 15px;">
+                <label>内容</label><br>
+                <textarea name="content" style="width: 100%; height: 80px; padding: 5px; box-sizing: border-box;"></textarea>
+            </div>
+            <div style="margin-bottom: 15px;">
+                <label>登録者</label><br>
+                <input type="text" name="name" style="width: 100%; padding: 5px; box-sizing: border-box;">
+            </div>
+            <div style="margin-bottom: 15px;">
+                <label>開始日</label><br>
+                <input type="date" name="startDate" style="width: 100%; padding: 5px; box-sizing: border-box;">
+            </div>
+            <div style="margin-bottom: 15px;">
+                <label>終了日</label><br>
+                <input type="date" name="endDate" style="width: 100%; padding: 5px; box-sizing: border-box;">
+            </div>
+            <button type="submit" style="background-color: #007bff; color: white; padding: 6px 16px; border: none; border-radius: 3px;">保存</button>
+            <a th:href="@{/tasks}">
+                <button type="button" style="background-color: #6c757d; color: white; padding: 6px 16px; border: none; border-radius: 3px;">←キャンセル</button>
+            </a>
+        </form>
+    </div>
+</body>
+</html>
