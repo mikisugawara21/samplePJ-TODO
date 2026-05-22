@@ -1,6 +1,8 @@
 package sample.service.impl;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import sample.common.dao.entity.Login;
 import sample.common.dao.mapper.LoginMapper;
@@ -10,9 +12,11 @@ import sample.service.LoginService;
 public class LoginServiceImpl implements LoginService {
 
     private final LoginMapper loginMapper;
+    private final PasswordEncoder passwordEncoder;
 
-    public LoginServiceImpl(LoginMapper loginMapper) {
+    public LoginServiceImpl(LoginMapper loginMapper, PasswordEncoder passwordEncoder) {
         this.loginMapper = loginMapper;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -21,10 +25,14 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    @Transactional
     public void register(String username, String password) {
+        if (loginMapper.findByUsername(username) != null) {
+            throw new IllegalArgumentException("ユーザー名は既に使われています");
+        }
         Login login = new Login();
         login.setUsername(username);
-        login.setPassword(password);
+        login.setPassword(passwordEncoder.encode(password));
         loginMapper.insert(login);
     }
 
@@ -34,6 +42,6 @@ public class LoginServiceImpl implements LoginService {
         if (login == null) {
             return false;
         }
-        return login.getPassword().equals(password);
+        return passwordEncoder.matches(password, login.getPassword());
     }
 }
