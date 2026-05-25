@@ -1,7 +1,5 @@
 package sample.thymeleaf.web;
 
-import java.util.List;
-
 import jakarta.servlet.http.HttpSession;
 
 import org.springframework.http.HttpStatus;
@@ -26,19 +24,20 @@ public class TaskController {
         this.taskService = taskService;
     }
 
+    private static final int PAGE_SIZE = 10;
+
     @GetMapping("/tasks")
     public String list(@RequestParam(defaultValue = "1") int page, HttpSession session, Model model) {
         String username = (String) session.getAttribute("username");
         if (username == null) {
             return "redirect:/login";
         }
-        int pageSize = 10;
-        int offset = (page - 1) * pageSize;
-        List<Task> taskList = taskService.getTaskList(username, offset, pageSize);
         int totalCount = taskService.countByUsername(username);
-        int totalPages = (int) Math.ceil((double) totalCount / pageSize);
-        model.addAttribute("taskList", taskList);
-        model.addAttribute("page", page);
+        int totalPages = Math.max(1, (int) Math.ceil((double) totalCount / PAGE_SIZE));
+        int safePage = Math.min(Math.max(page, 1), totalPages);
+        int offset = (safePage - 1) * PAGE_SIZE;
+        model.addAttribute("taskList", taskService.getTaskList(username, offset, PAGE_SIZE));
+        model.addAttribute("page", safePage);
         model.addAttribute("totalPages", totalPages);
         return "tasks/list";
     }
