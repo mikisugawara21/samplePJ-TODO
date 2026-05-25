@@ -15,9 +15,15 @@
 </head>
 <body>
     <div style="padding: 20px;">
-        <h2 style="text-align: center;">タスク一覧</h2>
-		
-		<div th:if="${#lists.isEmpty(taskList)}" 
+		<h2 style="text-align: center;">タスク一覧</h2>
+
+		<div style="text-align: right; margin-bottom: 10px;">
+		    <form th:action="@{/logout}" method="post" style="display:inline;">
+		        <button type="submit" style="background-color: #6c757d; color: white; padding: 6px 12px; border: none; border-radius: 3px;">ログアウト</button>
+		    </form>
+		</div>
+
+		<div th:if="${#lists.isEmpty(taskList)}"
 		     style="background-color: #e0f0ff; padding: 12px; border-radius: 4px; margin-bottom: 10px; text-align: center;">
 		    📢 現在タスクは登録されていません。「新規作成」から追加してください。
 		</div>
