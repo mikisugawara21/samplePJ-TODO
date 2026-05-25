@@ -8,18 +8,19 @@
     <div style="text-align:center; margin-top: 30px;">
         <h3 style="font-size: 18px;">ログイン</h3>
         <div style="display: inline-block; border: 1px solid #ccc; padding: 15px 25px; border-radius: 5px;">
+            <p th:if="${error}" th:text="${error}" style="color:red; font-size: 13px;"></p>
             <form th:action="@{/login}" method="post">
                 <div style="text-align: left;">
                     <label style="font-size: 13px;">ユーザー名</label><br>
-					<input type="text" name="username" style="width: 100%; padding: 3px; margin-top: 3px; box-sizing: border-box;">
+                    <input type="text" name="username" style="width: 100%; padding: 3px; margin-top: 3px; box-sizing: border-box;">
                 </div>
                 <div style="text-align: left; margin-top: 10px;">
                     <label style="font-size: 13px;">パスワード</label><br>
                     <input type="password" name="password" style="width: 100%; padding: 3px; margin-top: 3px; box-sizing: border-box;">
                 </div>
-				<div style="margin-top: 12px;">
-				    <button type="submit" style="background-color: #007bff; color: white; padding: 6px 0; border: none; border-radius: 3px; font-size: 13px; width: 100%;">ログイン</button>
-				</div>
+                <div style="margin-top: 12px;">
+                    <button type="submit" style="background-color: #007bff; color: white; padding: 6px 0; border: none; border-radius: 3px; font-size: 13px; width: 100%;">ログイン</button>
+                </div>
             </form>
         </div>
     </div>
