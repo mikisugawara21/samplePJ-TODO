@@ -7,26 +7,32 @@
 <body>
     <div style="padding: 20px;">
         <h2>新規タスク作成</h2>
-        <form th:action="@{/tasks}" method="post">
+        <form th:action="@{/tasks}" th:object="${task}" method="post">
             <div style="margin-bottom: 15px;">
                 <label>タイトル</label><br>
-                <input type="text" name="title" style="width: 100%; padding: 5px; box-sizing: border-box;">
+                <input type="text" th:field="*{title}" style="width: 100%; padding: 5px; box-sizing: border-box;">
+                <p th:errors="*{title}" style="color:red; font-size: 13px;"></p>
             </div>
             <div style="margin-bottom: 15px;">
                 <label>内容</label><br>
-                <textarea name="content" style="width: 100%; height: 80px; padding: 5px; box-sizing: border-box;"></textarea>
+                <textarea th:field="*{content}" style="width: 100%; height: 80px; padding: 5px; box-sizing: border-box;"></textarea>
+                <p th:errors="*{content}" style="color:red; font-size: 13px;"></p>
             </div>
             <div style="margin-bottom: 15px;">
                 <label>登録者</label><br>
-                <input type="text" name="name" style="width: 100%; padding: 5px; box-sizing: border-box;">
+                <input type="text" th:field="*{name}" style="width: 100%; padding: 5px; box-sizing: border-box;">
+                <p th:errors="*{name}" style="color:red; font-size: 13px;"></p>
             </div>
             <div style="margin-bottom: 15px;">
                 <label>開始日</label><br>
-                <input type="date" name="startDate" style="width: 100%; padding: 5px; box-sizing: border-box;">
+                <input type="date" th:field="*{startDate}" style="width: 100%; padding: 5px; box-sizing: border-box;">
+                <p th:errors="*{startDate}" style="color:red; font-size: 13px;"></p>
             </div>
             <div style="margin-bottom: 15px;">
                 <label>終了日</label><br>
-                <input type="date" name="endDate" style="width: 100%; padding: 5px; box-sizing: border-box;">
+                <input type="date" th:field="*{endDate}" style="width: 100%; padding: 5px; box-sizing: border-box;">
+                <p th:errors="*{endDate}" style="color:red; font-size: 13px;"></p>
+                <p th:errors="*{endDateAfterStartDate}" style="color:red; font-size: 13px;"></p>
             </div>
             <button type="submit" style="background-color: #007bff; color: white; padding: 6px 16px; border: none; border-radius: 3px;">保存</button>
             <a th:href="@{/tasks}">

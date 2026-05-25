@@ -5,6 +5,8 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,17 +16,18 @@ import org.springframework.web.server.ResponseStatusException;
 
 import sample.common.dao.entity.Task;
 import sample.service.TaskService;
+import sample.thymeleaf.web.form.TaskForm;
 
 @Controller
 public class TaskController {
 
     private final TaskService taskService;
 
+    private static final int PAGE_SIZE = 10;
+
     public TaskController(TaskService taskService) {
         this.taskService = taskService;
     }
-
-    private static final int PAGE_SIZE = 10;
 
     @GetMapping("/tasks")
     public String list(@RequestParam(defaultValue = "1") int page, HttpSession session, Model model) {
@@ -49,29 +52,50 @@ public class TaskController {
         if (task == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
-        model.addAttribute("task", task);
+        TaskForm form = new TaskForm();
+        form.setTitle(task.getTitle());
+        form.setContent(task.getContent());
+        form.setName(task.getName());
+        form.setStartDate(task.getStartDate());
+        form.setEndDate(task.getEndDate());
+        model.addAttribute("task", form);
+        model.addAttribute("taskId", id);
         return "tasks/form-edit";
     }
 
     @GetMapping("/tasks/new")
     public String newTask(Model model) {
-        model.addAttribute("task", new Task());
+        model.addAttribute("task", new TaskForm());
         return "tasks/form-new";
     }
 
     @PostMapping("/tasks")
-    public String create(@ModelAttribute Task task, HttpSession session) {
+    public String create(@Validated @ModelAttribute("task") TaskForm form,
+                         BindingResult br,
+                         HttpSession session,
+                         Model model) {
+        if (br.hasErrors()) {
+            return "tasks/form-new";
+        }
         String username = (String) session.getAttribute("username");
-        task.setUsername(username);
+        Task task = toEntity(form, username);
         taskService.createTask(task);
         return "redirect:/tasks";
     }
 
     @PostMapping("/tasks/update/{id}")
-    public String update(@PathVariable Long id, @ModelAttribute Task task, HttpSession session) {
+    public String update(@PathVariable Long id,
+                         @Validated @ModelAttribute("task") TaskForm form,
+                         BindingResult br,
+                         HttpSession session,
+                         Model model) {
+        if (br.hasErrors()) {
+            model.addAttribute("taskId", id);
+            return "tasks/form-edit";
+        }
         String username = (String) session.getAttribute("username");
+        Task task = toEntity(form, username);
         task.setId(id);
-        task.setUsername(username);
         int updated = taskService.updateTask(task);
         if (updated == 0) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "task not found or not owned");
@@ -87,5 +111,16 @@ public class TaskController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "task not found or not owned");
         }
         return "redirect:/tasks";
+    }
+
+    private Task toEntity(TaskForm form, String username) {
+        Task task = new Task();
+        task.setUsername(username);
+        task.setTitle(form.getTitle());
+        task.setContent(form.getContent());
+        task.setName(form.getName());
+        task.setStartDate(form.getStartDate());
+        task.setEndDate(form.getEndDate());
+        return task;
     }
 }
