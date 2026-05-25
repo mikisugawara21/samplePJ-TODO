@@ -28,18 +28,23 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
+    public Task getTaskByIdAndUsername(Long id, String username) {
+        return taskMapper.findByIdAndUsername(id, username);
+    }
+
+    @Override
     public void createTask(Task task) {
         taskMapper.insert(task);
     }
 
     @Override
-    public void updateTask(Task task) {
-        taskMapper.update(task);
+    public int updateTask(Task task) {
+        return taskMapper.update(task);
     }
 
     @Override
-    public void deleteTask(Long id) {
-        taskMapper.delete(id);
+    public int deleteTask(Long id, String username) {
+        return taskMapper.delete(id, username);
     }
 
     @Override

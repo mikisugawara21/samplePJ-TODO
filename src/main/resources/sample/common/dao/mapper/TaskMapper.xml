@@ -25,6 +25,16 @@
         WHERE id = #{id}
     </select>
 
+    <select id="findByIdAndUsername" resultType="sample.common.dao.entity.Task">
+        SELECT id, username, title, content, name,
+               start_date AS startDate,
+               end_date AS endDate,
+               created_at AS createdAt,
+               updated_at AS updatedAt
+        FROM tasks
+        WHERE id = #{id} AND username = #{username}
+    </select>
+
     <insert id="insert">
         INSERT INTO tasks (username, title, content, name, start_date, end_date)
         VALUES (#{username}, #{title}, #{content}, #{name}, #{startDate}, #{endDate})
@@ -37,11 +47,11 @@
             name = #{name},
             start_date = #{startDate},
             end_date = #{endDate}
-        WHERE id = #{id}
+        WHERE id = #{id} AND username = #{username}
     </update>
 
     <delete id="delete">
-        DELETE FROM tasks WHERE id = #{id}
+        DELETE FROM tasks WHERE id = #{id} AND username = #{username}
     </delete>
 
     <select id="countByUsername" resultType="int">
