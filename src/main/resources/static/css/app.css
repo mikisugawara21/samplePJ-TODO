@@ -1,0 +1,36 @@
+.btn {
+    padding: 6px 16px;
+    border: none;
+    border-radius: 3px;
+    color: #fff;
+    cursor: pointer;
+}
+.btn-primary { background-color: #007bff; }
+.btn-success { background-color: #28a745; }
+.btn-danger  { background-color: #dc3545; }
+.btn-secondary { background-color: #6c757d; }
+
+.page-link {
+    padding: 4px 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+}
+.page-link.active {
+    border-color: #007bff;
+    background-color: #007bff;
+    color: #fff;
+}
+.page-link.disabled {
+    color: #ccc;
+    pointer-events: none;
+}
+
+.form-group { margin-bottom: 15px; }
+.form-control {
+    width: 100%;
+    padding: 5px;
+    box-sizing: border-box;
+}

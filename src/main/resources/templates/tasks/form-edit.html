@@ -3,40 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <title>タスク編集</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
 </head>
 <body>
     <div style="padding: 20px;">
         <h2>タスク編集</h2>
         <form th:action="@{/tasks/update/{id}(id=${taskId})}" th:object="${task}" method="post">
-            <div style="margin-bottom: 15px;">
-                <label>タイトル</label><br>
-                <input type="text" th:field="*{title}" style="width: 100%; padding: 5px; box-sizing: border-box;">
+            <div class="form-group">
+                <label for="title">タイトル</label><br>
+                <input id="title" type="text" th:field="*{title}" class="form-control">
                 <p th:errors="*{title}" style="color:red; font-size: 13px;"></p>
             </div>
-            <div style="margin-bottom: 15px;">
-                <label>内容</label><br>
-                <textarea th:field="*{content}" style="width: 100%; height: 80px; padding: 5px; box-sizing: border-box;"></textarea>
+            <div class="form-group">
+                <label for="content">内容</label><br>
+                <textarea id="content" th:field="*{content}" class="form-control" style="height: 80px;"></textarea>
                 <p th:errors="*{content}" style="color:red; font-size: 13px;"></p>
             </div>
-            <div style="margin-bottom: 15px;">
-                <label>登録者</label><br>
-                <input type="text" th:field="*{name}" style="width: 100%; padding: 5px; box-sizing: border-box;">
+            <div class="form-group">
+                <label for="name">登録者</label><br>
+                <input id="name" type="text" th:field="*{name}" class="form-control">
                 <p th:errors="*{name}" style="color:red; font-size: 13px;"></p>
             </div>
-            <div style="margin-bottom: 15px;">
-                <label>開始日</label><br>
-                <input type="date" th:field="*{startDate}" style="width: 100%; padding: 5px; box-sizing: border-box;">
+            <div class="form-group">
+                <label for="startDate">開始日</label><br>
+                <input id="startDate" type="date" th:field="*{startDate}" class="form-control">
                 <p th:errors="*{startDate}" style="color:red; font-size: 13px;"></p>
             </div>
-            <div style="margin-bottom: 15px;">
-                <label>終了日</label><br>
-                <input type="date" th:field="*{endDate}" style="width: 100%; padding: 5px; box-sizing: border-box;">
+            <div class="form-group">
+                <label for="endDate">終了日</label><br>
+                <input id="endDate" type="date" th:field="*{endDate}" class="form-control">
                 <p th:errors="*{endDate}" style="color:red; font-size: 13px;"></p>
                 <p th:errors="*{endDateAfterStartDate}" style="color:red; font-size: 13px;"></p>
             </div>
-            <button type="submit" style="background-color: #007bff; color: white; padding: 6px 16px; border: none; border-radius: 3px;">更新</button>
+            <button type="submit" class="btn btn-primary">更新</button>
             <a th:href="@{/tasks}">
-                <button type="button" style="background-color: #6c757d; color: white; padding: 6px 16px; border: none; border-radius: 3px;">←キャンセル</button>
+                <button type="button" class="btn btn-secondary">←キャンセル</button>
             </a>
         </form>
     </div>
