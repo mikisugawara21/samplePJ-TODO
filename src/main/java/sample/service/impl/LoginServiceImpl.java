@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import sample.common.dao.entity.Login;
 import sample.common.dao.mapper.LoginMapper;
+import sample.logic.exception.DuplicateUsernameException;
 import sample.service.LoginService;
 
 @Service
@@ -28,7 +29,7 @@ public class LoginServiceImpl implements LoginService {
     @Transactional
     public void register(String username, String password) {
         if (loginMapper.findByUsername(username) != null) {
-            throw new IllegalArgumentException("ユーザー名は既に使われています");
+            throw new DuplicateUsernameException("ユーザー名は既に使われています");
         }
         Login login = new Login();
         login.setUsername(username);
