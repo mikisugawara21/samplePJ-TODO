@@ -2,7 +2,6 @@ package sample.thymeleaf.web;
 
 import jakarta.servlet.http.HttpSession;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,9 +11,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.server.ResponseStatusException;
 
 import sample.common.dao.entity.Task;
+import sample.logic.exception.NotFoundException;
 import sample.service.TaskService;
 import sample.thymeleaf.web.form.TaskForm;
 
@@ -50,7 +49,7 @@ public class TaskController {
         String username = (String) session.getAttribute("username");
         Task task = taskService.getTaskByIdAndUsername(id, username);
         if (task == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            throw new NotFoundException("task not found or not owned");
         }
         TaskForm form = new TaskForm();
         form.setTitle(task.getTitle());
@@ -98,7 +97,7 @@ public class TaskController {
         task.setId(id);
         int updated = taskService.updateTask(task);
         if (updated == 0) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "task not found or not owned");
+            throw new NotFoundException("task not found or not owned");
         }
         return "redirect:/tasks";
     }
@@ -108,7 +107,7 @@ public class TaskController {
         String username = (String) session.getAttribute("username");
         int deleted = taskService.deleteTask(id, username);
         if (deleted == 0) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "task not found or not owned");
+            throw new NotFoundException("task not found or not owned");
         }
         return "redirect:/tasks";
     }
