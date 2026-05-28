@@ -25,11 +25,6 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public Task getTaskById(Long id) {
-        return taskMapper.findById(id);
-    }
-
-    @Override
     public Task getTaskByIdAndUsername(Long id, String username) {
         return taskMapper.findByIdAndUsername(id, username);
     }

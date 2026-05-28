@@ -10,7 +10,6 @@ import sample.common.dao.entity.Task;
 @Mapper
 public interface TaskMapper {
     List<Task> findAll(@Param("username") String username, @Param("offset") int offset, @Param("limit") int limit);
-    Task findById(Long id);
     Task findByIdAndUsername(@Param("id") Long id, @Param("username") String username);
     void insert(Task task);
     int update(Task task);

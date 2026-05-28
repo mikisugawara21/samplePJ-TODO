@@ -6,7 +6,6 @@ import sample.common.dao.entity.Task;
 
 public interface TaskService {
     List<Task> getTaskList(String username, int offset, int limit);
-    Task getTaskById(Long id);
     Task getTaskByIdAndUsername(Long id, String username);
     void createTask(Task task);
     int updateTask(Task task);
