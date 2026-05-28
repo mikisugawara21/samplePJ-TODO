@@ -6,21 +6,21 @@
     <link rel="stylesheet" th:href="@{/css/app.css}">
 </head>
 <body>
-    <div style="text-align:center; margin-top: 30px;">
-        <h3 style="font-size: 18px;">ログイン</h3>
-        <div style="display: inline-block; border: 1px solid #ccc; padding: 15px 25px; border-radius: 5px;">
-            <p th:if="${error}" th:text="${error}" style="color:red; font-size: 13px;"></p>
+    <div class="text-center mt-20">
+        <h3>ログイン</h3>
+        <div class="card">
+            <p th:if="${error}" th:text="${error}" class="field-error"></p>
             <form th:action="@{/login}" method="post">
                 <div class="form-group" style="text-align: left;">
-                    <label for="username" style="font-size: 13px;">ユーザー名</label><br>
-                    <input id="username" type="text" name="username" class="form-control" style="padding: 3px; margin-top: 3px;">
+                    <label for="username">ユーザー名</label><br>
+                    <input id="username" type="text" name="username" class="form-control">
                 </div>
                 <div class="form-group" style="text-align: left;">
-                    <label for="password" style="font-size: 13px;">パスワード</label><br>
-                    <input id="password" type="password" name="password" class="form-control" style="padding: 3px; margin-top: 3px;">
+                    <label for="password">パスワード</label><br>
+                    <input id="password" type="password" name="password" class="form-control">
                 </div>
-                <div style="margin-top: 12px;">
-                    <button type="submit" class="btn btn-primary" style="width: 100%; font-size: 13px;">ログイン</button>
+                <div class="mt-15">
+                    <button type="submit" class="btn btn-primary">ログイン</button>
                 </div>
             </form>
         </div>

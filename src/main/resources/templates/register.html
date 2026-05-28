@@ -6,26 +6,26 @@
     <link rel="stylesheet" th:href="@{/css/app.css}">
 </head>
 <body>
-    <div style="text-align:center; margin-top: 30px;">
-        <div style="display: inline-block; border: 1px solid #ccc; padding: 15px 25px; border-radius: 5px;">
-            <h3 style="font-size: 18px;">ユーザ登録</h3>
+    <div class="text-center mt-20">
+        <h3>ユーザ登録</h3>
+        <div class="card">
             <form th:action="@{/register}" th:object="${registerForm}" method="post">
                 <div class="form-group" style="text-align: left;">
-                    <label for="username" style="font-size: 13px;">ユーザ名（3〜20文字、半角英数字とアンダースコア）</label><br>
-                    <input id="username" type="text" th:field="*{username}" class="form-control" style="padding: 3px; margin-top: 3px;">
-                    <p th:errors="*{username}" style="color:red; font-size: 13px;"></p>
+                    <label for="username">ユーザ名（3〜20文字、半角英数字とアンダースコア）</label><br>
+                    <input id="username" type="text" th:field="*{username}" class="form-control">
+                    <p th:errors="*{username}" class="field-error"></p>
                 </div>
                 <div class="form-group" style="text-align: left;">
-                    <label for="password" style="font-size: 13px;">パスワード（8文字以上）</label><br>
-                    <input id="password" type="password" th:field="*{password}" class="form-control" style="padding: 3px; margin-top: 3px;">
-                    <p th:errors="*{password}" style="color:red; font-size: 13px;"></p>
+                    <label for="password">パスワード（8文字以上）</label><br>
+                    <input id="password" type="password" th:field="*{password}" class="form-control">
+                    <p th:errors="*{password}" class="field-error"></p>
                 </div>
-                <div style="margin-top: 12px;">
-                    <button type="submit" class="btn btn-success" style="width: 100%; font-size: 13px;">登録</button>
+                <div class="mt-15">
+                    <button type="submit" class="btn btn-success">登録</button>
                 </div>
             </form>
-            <div style="margin-top: 10px;">
-                <a th:href="@{/login}" style="font-size: 13px; color: #007bff;">ログインはこちら</a>
+            <div class="mt-15">
+                <a th:href="@{/login}">ログインはこちら</a>
             </div>
         </div>
     </div>
