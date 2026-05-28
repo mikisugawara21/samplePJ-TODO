@@ -1,0 +1,4 @@
+﻿spring.datasource.url=jdbc:postgresql://localhost:5432/todo_app
+spring.datasource.username=postgres
+spring.datasource.password=CHANGE_ME
+logging.level.sample=DEBUG
