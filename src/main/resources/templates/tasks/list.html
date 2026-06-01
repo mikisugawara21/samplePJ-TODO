@@ -60,5 +60,16 @@
                    th:classappend="${i == page} ? 'active' : ''"
                    class="page-link"></a>
             </span>
-            <a th:href="@{/tasks(page=${page + 1})}"
-               th:classappend
+			<a th:href="@{/tasks(page=${page + 1})}"
+			               th:classappend="${page == totalPages} ? 'disabled' : ''"
+			               class="page-link">次 »</a>
+			        </div>
+
+			        <div class="text-right mt-20">
+			            <a th:href="@{/tasks/new}">
+			                <button class="btn btn-success">＋新規作成</button>
+			            </a>
+			        </div>
+			    </div>
+			</body>
+			</html>
