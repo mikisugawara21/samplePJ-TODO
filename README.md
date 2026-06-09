@@ -1,4 +1,4 @@
-# samplePJ-TODO
+﻿# samplePJ-TODO
 
 Spring Boot で作成したTODO管理アプリです。
 
@@ -18,11 +18,22 @@ git clone https://github.com/mikisugawara21/samplePJ-TODO.git
 ### 2. データベースを作成
 PostgreSQLで `todo_app` データベースを作成してください。
 
-### 3. 設定ファイルを作成
-`src/main/resources/application.properties` を作成して
-DB接続情報を設定してください。
+### 3. DB接続情報を環境変数で設定
+本アプリは接続情報を環境変数から読み込みます。
 
-### 4. アプリを起動
+例（Windows PowerShell）:
+
+    $env:DB_URL="jdbc:postgresql://localhost:5432/todo_app"
+    $env:DB_USER="postgres"
+    $env:DB_PASSWORD="あなたのDBパスワード"
+
+### 4. （任意）ローカル用設定ファイル
+DEBUGログなどローカル専用設定が欲しい場合は、雛形をコピーして使ってください。
+application-local.properties は .gitignore 済みなのでコミットされません。
+
+    cp src/main/resources/application-local.properties.example src/main/resources/application-local.properties
+
+### 5. アプリを起動
 ./gradlew bootRun
 
 ## 機能一覧
