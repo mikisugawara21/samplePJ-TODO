@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
@@ -9,6 +9,7 @@
     <div class="page-container">
         <h2>タスク編集</h2>
         <form th:action="@{/tasks/update/{id}(id=${taskId})}" th:object="${task}" method="post">
+            <input type="hidden" name="csrfToken" th:value="${session.csrfToken}">
             <div class="form-group">
                 <label for="title">タイトル</label><br>
                 <input id="title" type="text" th:field="*{title}" class="form-control">

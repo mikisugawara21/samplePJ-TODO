@@ -42,6 +42,7 @@
                         <button class="btn btn-primary">編集</button>
                     </a>
                     <form th:action="@{/tasks/delete/{id}(id=${task.id})}" method="post" style="display:inline;">
+                        <input type="hidden" name="csrfToken" th:value="${session.csrfToken}">
                         <button type="submit" class="btn btn-danger">削除</button>
                     </form>
                 </td>
