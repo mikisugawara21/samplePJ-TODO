@@ -1,35 +1,32 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>繧ｿ繧ｹ繧ｯ荳隕ｧ</title>
+    <title>タスク一覧</title>
     <link rel="stylesheet" th:href="@{/css/app.css}">
 </head>
 <body>
     <div class="page-container">
-        <h2 class="text-center">繧ｿ繧ｹ繧ｯ荳隕ｧ</h2>
-
+        <h2 class="text-center">タスク一覧</h2>
         <div class="text-right mb-10">
             <form th:action="@{/logout}" method="post" style="display:inline;">
-                <button type="submit" class="btn btn-secondary">繝ｭ繧ｰ繧｢繧ｦ繝・/button>
+                <button type="submit" class="btn btn-secondary">ログアウト</button>
             </form>
         </div>
-
         <div th:if="${#lists.isEmpty(taskList)}" class="alert-info">
-            討 迴ｾ蝨ｨ繧ｿ繧ｹ繧ｯ縺ｯ逋ｻ骭ｲ縺輔ｌ縺ｦ縺・∪縺帙ｓ縲ゅ梧眠隕丈ｽ懈・縲阪°繧芽ｿｽ蜉縺励※縺上□縺輔＞縲・
+            タスクがありません。新しいタスクを作成してください。
         </div>
-
         <table th:if="${not #lists.isEmpty(taskList)}" class="table">
             <tr>
                 <th>ID</th>
-                <th>繧ｿ繧､繝医Ν</th>
-                <th>蜀・ｮｹ</th>
-                <th>逋ｻ骭ｲ閠・/th>
-                <th>髢句ｧ区律</th>
-                <th>邨ゆｺ・律</th>
-                <th>菴懈・譌･譎・/th>
-                <th>譖ｴ譁ｰ譌･譎・/th>
-                <th>謫堺ｽ・/th>
+                <th>タイトル</th>
+                <th>内容</th>
+                <th>担当者名</th>
+                <th>開始日</th>
+                <th>終了日</th>
+                <th>作成日時</th>
+                <th>更新日時</th>
+                <th>操作</th>
             </tr>
             <tr th:each="task : ${taskList}">
                 <td th:text="${task.id}"></td>
@@ -42,34 +39,32 @@
                 <td th:text="${task.updatedAt}"></td>
                 <td>
                     <a th:href="@{/tasks/edit/{id}(id=${task.id})}">
-                        <button class="btn btn-primary">邱ｨ髮・/button>
+                        <button class="btn btn-primary">編集</button>
                     </a>
                     <form th:action="@{/tasks/delete/{id}(id=${task.id})}" method="post" style="display:inline;">
-                        <button type="submit" class="btn btn-danger">蜑企勁</button>
+                        <button type="submit" class="btn btn-danger">削除</button>
                     </form>
                 </td>
             </tr>
         </table>
-
         <div th:if="${not #lists.isEmpty(taskList)}" class="text-center mt-15">
             <a th:href="@{/tasks(page=${page - 1})}"
                th:classappend="${page == 1} ? 'disabled' : ''"
-               class="page-link">ﾂｫ 蜑・/a>
+               class="page-link">« 前へ</a>
             <span th:each="i : ${#numbers.sequence(1, totalPages)}">
                 <a th:href="@{/tasks(page=${i})}" th:text="${i}"
                    th:classappend="${i == page} ? 'active' : ''"
                    class="page-link"></a>
             </span>
             <a th:href="@{/tasks(page=${page + 1})}"
-                           th:classappend="${page == totalPages} ? 'disabled' : ''"
-                           class="page-link">谺｡ ﾂｻ</a>
-                    </div>
-
-                    <div class="text-right mt-20">
-                        <a th:href="@{/tasks/new}">
-                            <button class="btn btn-success">・区眠隕丈ｽ懈・</button>
-                        </a>
-                    </div>
-                </div>
-            </body>
-            </html>
+               th:classappend="${page == totalPages} ? 'disabled' : ''"
+               class="page-link">次へ »</a>
+        </div>
+        <div class="text-right mt-20">
+            <a th:href="@{/tasks/new}">
+                <button class="btn btn-success">新規作成</button>
+            </a>
+        </div>
+    </div>
+</body>
+</html>
